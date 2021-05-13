@@ -1,0 +1,1605 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Simple Inventory API</title>
+    <style type="text/css">
+      body {
+      	font-family: Trebuchet MS, sans-serif;
+      	font-size: 15px;
+      	color: #444;
+      	margin-right: 24px;
+      }
+      
+      h1	{
+      	font-size: 25px;
+      }
+      h2	{
+      	font-size: 20px;
+      }
+      h3	{
+      	font-size: 16px;
+      	font-weight: bold;
+      }
+      hr	{
+      	height: 1px;
+      	border: 0;
+      	color: #ddd;
+      	background-color: #ddd;
+      }
+      
+      .app-desc {
+        clear: both;
+        margin-left: 20px;
+      }
+      .param-name {
+        width: 100%;
+      }
+      .license-info {
+        margin-left: 20px;
+      }
+      
+      .license-url {
+        margin-left: 20px;
+      }
+      
+      .model {
+        margin: 0 0 0px 20px;
+      }
+      
+      .method {
+        margin-left: 20px;
+      }
+      
+      .method-notes	{
+      	margin: 10px 0 20px 0;
+      	font-size: 90%;
+      	color: #555;
+      }
+      
+      pre {
+        padding: 10px;
+        margin-bottom: 2px;
+      }
+      
+      .http-method {
+       text-transform: uppercase;
+      }
+      
+      pre.get {
+        background-color: #0f6ab4;
+      }
+      
+      pre.post {
+        background-color: #10a54a;
+      }
+      
+      pre.put {
+        background-color: #c5862b;
+      }
+      
+      pre.delete {
+        background-color: #a41e22;
+      }
+      
+      .huge	{
+      	color: #fff;
+      }
+      
+      pre.example {
+        background-color: #f3f3f3;
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+      
+      code {
+        white-space: pre;
+      }
+      
+      .nickname {
+        font-weight: bold;
+      }
+      
+      .method-path {
+        font-size: 1.5em;
+        background-color: #0f6ab4;
+      }
+      
+      .up {
+        float:right;
+      }
+      
+      .parameter {
+        width: 500px;
+      }
+      
+      .param {
+        width: 500px;
+        padding: 10px 0 0 20px;
+        font-weight: bold;
+      }
+      
+      .param-desc {
+        width: 700px;
+        padding: 0 0 0 20px;
+        color: #777;
+      }
+      
+      .param-type {
+        font-style: italic;
+      }
+      
+      .param-enum-header {
+      width: 700px;
+      padding: 0 0 0 60px;
+      color: #777;
+      font-weight: bold;
+      }
+      
+      .param-enum {
+      width: 700px;
+      padding: 0 0 0 80px;
+      color: #777;
+      font-style: italic;
+      }
+      
+      .field-label {
+        padding: 0;
+        margin: 0;
+        clear: both;
+      }
+      
+      .field-items	{
+      	padding: 0 0 15px 0;
+      	margin-bottom: 15px;
+      }
+      
+      .return-type {
+        clear: both;
+        padding-bottom: 10px;
+      }
+      
+      .param-header {
+        font-weight: bold;
+      }
+      
+      .method-tags {
+        text-align: right;
+      }
+      
+      .method-tag {
+        background: none repeat scroll 0% 0% #24A600;
+        border-radius: 3px;
+        padding: 2px 10px;
+        margin: 2px;
+        color: #FFF;
+        display: inline-block;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>Simple Inventory API</h1>
+    <div class="app-desc">This is a simple API</div>
+    <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
+    <div class="app-desc">Contact Info: <a href="you@your-company.com">you@your-company.com</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath:/daniel-izmaylov/FootballSite/1.0.0</div>
+    <div class="license-info">Apache 2.0</div>
+    <div class="license-url">http://www.apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Auth">Auth</a></h4>
+  <ul>
+  <li><a href="#loginUser"><code><span class="http-method">get</span> /user/login</code></a></li>
+  <li><a href="#logoutUser"><code><span class="http-method">get</span> /user/logout</code></a></li>
+  <li><a href="#registerPost"><code><span class="http-method">post</span> /register</code></a></li>
+  </ul>
+  <h4><a href="#Coachs">Coachs</a></h4>
+  <ul>
+  <li><a href="#coachCoachNameGet"><code><span class="http-method">get</span> /coach/{coach_name}</code></a></li>
+  <li><a href="#coachlPlayerPage"><code><span class="http-method">get</span> /coach/{coachId}</code></a></li>
+  <li><a href="#coadIDchange"><code><span class="http-method">put</span> /coach/{coachId}</code></a></li>
+  </ul>
+  <h4><a href="#Games">Games</a></h4>
+  <ul>
+  <li><a href="#gameGameIdEventsPost"><code><span class="http-method">post</span> /game/{gameId}/events/</code></a></li>
+  <li><a href="#gameGameIdGet"><code><span class="http-method">get</span> /game/{gameId}</code></a></li>
+  <li><a href="#gameGameIdPut"><code><span class="http-method">put</span> /game/{gameId}</code></a></li>
+  <li><a href="#gamePost"><code><span class="http-method">post</span> /game</code></a></li>
+  </ul>
+  <h4><a href="#Info">Info</a></h4>
+  <ul>
+  <li><a href="#homepageFavoriteteamsPost"><code><span class="http-method">post</span> /homepage/favoriteteams</code></a></li>
+  </ul>
+  <h4><a href="#PersonalPage">PersonalPage</a></h4>
+  <ul>
+  <li><a href="#homePageGenreal"><code><span class="http-method">get</span> /homepage</code></a></li>
+  <li><a href="#homepageFavoritematchesGameIdDelete"><code><span class="http-method">delete</span> /homepage/favoritematches/{gameId}</code></a></li>
+  <li><a href="#homepageFavoritematchesGet"><code><span class="http-method">get</span> /homepage/favoritematches</code></a></li>
+  <li><a href="#homepageFavoritematchesPut"><code><span class="http-method">put</span> /homepage/favoritematches</code></a></li>
+  <li><a href="#homepageFavoriteplayerGet"><code><span class="http-method">get</span> /homepage/favoriteplayer</code></a></li>
+  <li><a href="#homepageFavoriteplayerPlayerIdDelete"><code><span class="http-method">delete</span> /homepage/favoriteplayer/{playerId}</code></a></li>
+  <li><a href="#homepageFavoriteplayerPut"><code><span class="http-method">put</span> /homepage/favoriteplayer</code></a></li>
+  <li><a href="#homepageFavoriteplayerTeamIdDelete"><code><span class="http-method">delete</span> /homepage/favoriteplayer/{teamId}</code></a></li>
+  <li><a href="#homepageFavoriteteamsGet"><code><span class="http-method">get</span> /homepage/favoriteteams</code></a></li>
+  </ul>
+  <h4><a href="#Players">Players</a></h4>
+  <ul>
+  <li><a href="#persnoalPlayerPage"><code><span class="http-method">get</span> /player/{playerId}</code></a></li>
+  <li><a href="#playerPlayerNameGet"><code><span class="http-method">get</span> /player/{player_name}</code></a></li>
+  <li><a href="#playerchange"><code><span class="http-method">put</span> /player/{playerId}</code></a></li>
+  </ul>
+  <h4><a href="#Teams">Teams</a></h4>
+  <ul>
+  <li><a href="#teamPage"><code><span class="http-method">get</span> /Team/{teamId}</code></a></li>
+  <li><a href="#teamTeamNameGet"><code><span class="http-method">get</span> /Team/{team_name}</code></a></li>
+  <li><a href="#teamchange"><code><span class="http-method">put</span> /Team/{teamId}</code></a></li>
+  </ul>
+
+  <h1><a name="Auth">Auth</a></h1>
+  <div class="method"><a name="loginUser"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/login</code></pre></div>
+    <div class="method-summary">Logs user into the system (<span class="nickname">loginUser</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">username (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; The user name for login </div>      <div class="param">password (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; The password for login in clear text </div>    </div>  <!-- field-items -->
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    successful operation
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Invalid username/password supplied
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="logoutUser"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /user/logout</code></pre></div>
+    <div class="method-summary">Logs user out of the system (<span class="nickname">logoutUser</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successful logout
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Need to login
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="registerPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /register</code></pre></div>
+    <div class="method-summary">Add new user to the server (<span class="nickname">registerPost</span>)</div>
+    <div class="method-notes">A json object contains all the detials about the new user.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#User">User</a> (optional)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    The user created successfully
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    The userName is taken
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Coachs">Coachs</a></h1>
+  <div class="method"><a name="coachCoachNameGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /coach/{coach_name}</code></pre></div>
+    <div class="method-summary">search coach by name by name (<span class="nickname">coachCoachNameGet</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">coach_name (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Coach">Coach</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "teamName" : "Real Madrid",
+  "fullName" : "zinedine zidane",
+  "id" : 111,
+  "image-url" : "image-url"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    data of specific user
+        <a href="#Coach">Coach</a>
+    <h4 class="field-label">400</h4>
+    Bad Request.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="coachlPlayerPage"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /coach/{coachId}</code></pre></div>
+    <div class="method-summary">get coach personal page by ID (<span class="nickname">coachlPlayerPage</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">coachId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Identification of the requested coach by id. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Coach">Coach</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "teamName" : "Real Madrid",
+  "fullName" : "zinedine zidane",
+  "id" : 111,
+  "image-url" : "image-url"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK. recipes on the way.
+        <a href="#Coach">Coach</a>
+    <h4 class="field-label">204</h4>
+    Bad, No Content was found.
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad Request.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="coadIDchange"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /coach/{coachId}</code></pre></div>
+    <div class="method-summary">get coach personal page (<span class="nickname">coadIDchange</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">coachId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Identification of the requested coach by id. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    success
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    somting went wrong
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Games">Games</a></h1>
+  <div class="method"><a name="gameGameIdEventsPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /game/{gameId}/events/</code></pre></div>
+    <div class="method-summary">Add an event to a game (<span class="nickname">gameGameIdEventsPost</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">gameId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Event">Event</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    success
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad Request.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="gameGameIdGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /game/{gameId}</code></pre></div>
+    <div class="method-summary">search a game by ID (<span class="nickname">gameGameIdGet</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">gameId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Game">Game</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : "13.5.2021",
+  "home_score" : 2,
+  "away_score" : 3,
+  "id" : 1,
+  "home-team" : {
+    "teamName" : "Maccabi Tel Aviv",
+    "players" : [ {
+      "teamName" : "Maccabi Tel Aviv",
+      "fullName" : "Ronaldo Messi",
+      "id" : 23,
+      "image-url" : "image-url",
+      "position" : 0
+    }, {
+      "teamName" : "Maccabi Tel Aviv",
+      "fullName" : "Ronaldo Messi",
+      "id" : 23,
+      "image-url" : "image-url",
+      "position" : 0
+    } ],
+    "Games" : [ null, null ],
+    "id" : 84,
+    "coach-id" : 23
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    match
+        <a href="#Game">Game</a>
+    <h4 class="field-label">400</h4>
+    something went wrong
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="gameGameIdPut"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /game/{gameId}</code></pre></div>
+    <div class="method-summary">update game results (<span class="nickname">gameGameIdPut</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">gameId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#body">body</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; game results </div>
+                </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    game updated
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    something went wrong
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="gamePost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /game</code></pre></div>
+    <div class="method-summary">Add a new game to the server (<span class="nickname">gamePost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Game">Game</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Game">Game</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "data" : "13.5.2021",
+  "home_score" : 2,
+  "away_score" : 3,
+  "id" : 1,
+  "home-team" : {
+    "teamName" : "Maccabi Tel Aviv",
+    "players" : [ {
+      "teamName" : "Maccabi Tel Aviv",
+      "fullName" : "Ronaldo Messi",
+      "id" : 23,
+      "image-url" : "image-url",
+      "position" : 0
+    }, {
+      "teamName" : "Maccabi Tel Aviv",
+      "fullName" : "Ronaldo Messi",
+      "id" : 23,
+      "image-url" : "image-url",
+      "position" : 0
+    } ],
+    "Games" : [ null, null ],
+    "id" : 84,
+    "coach-id" : 23
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">201</h4>
+    Match added successfully
+        <a href="#Game">Game</a>
+    <h4 class="field-label">400</h4>
+    something went wrong
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Info">Info</a></h1>
+  <div class="method"><a name="homepageFavoriteteamsPost"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /homepage/favoriteteams</code></pre></div>
+    <div class="method-summary">add a team to user&#x27;s favorites (<span class="nickname">homepageFavoriteteamsPost</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Team">Team</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    success
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    somting went wrong
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="PersonalPage">PersonalPage</a></h1>
+  <div class="method"><a name="homePageGenreal"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /homepage</code></pre></div>
+    <div class="method-summary">get UserHome page (<span class="nickname">homePageGenreal</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Leauge">Leauge</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "country" : "Israel",
+  "games" : [ {
+    "data" : "13.5.2021",
+    "home_score" : 2,
+    "away_score" : 3,
+    "id" : 1,
+    "home-team" : {
+      "teamName" : "Maccabi Tel Aviv",
+      "players" : [ {
+        "teamName" : "Maccabi Tel Aviv",
+        "fullName" : "Ronaldo Messi",
+        "id" : 23,
+        "image-url" : "image-url",
+        "position" : 0
+      }, {
+        "teamName" : "Maccabi Tel Aviv",
+        "fullName" : "Ronaldo Messi",
+        "id" : 23,
+        "image-url" : "image-url",
+        "position" : 0
+      } ],
+      "Games" : [ null, null ],
+      "id" : 84,
+      "coach-id" : 23
+    }
+  }, {
+    "data" : "13.5.2021",
+    "home_score" : 2,
+    "away_score" : 3,
+    "id" : 1,
+    "home-team" : {
+      "teamName" : "Maccabi Tel Aviv",
+      "players" : [ {
+        "teamName" : "Maccabi Tel Aviv",
+        "fullName" : "Ronaldo Messi",
+        "id" : 23,
+        "image-url" : "image-url",
+        "position" : 0
+      }, {
+        "teamName" : "Maccabi Tel Aviv",
+        "fullName" : "Ronaldo Messi",
+        "id" : 23,
+        "image-url" : "image-url",
+        "position" : 0
+      } ],
+      "Games" : [ null, null ],
+      "id" : 84,
+      "coach-id" : 23
+    }
+  } ],
+  "Stage" : "1",
+  "id" : 33,
+  "Season" : "2020/2021",
+  "Name" : "Maccabi Tel Aviv"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    successful operation
+        <a href="#Leauge">Leauge</a>
+    <h4 class="field-label">400</h4>
+    somting went wrong
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="homepageFavoritematchesGameIdDelete"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /homepage/favoritematches/{gameId}</code></pre></div>
+    <div class="method-summary">Delete a game from the user&#x27;s favorite game list (<span class="nickname">homepageFavoritematchesGameIdDelete</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">gameId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    success
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad Request.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="homepageFavoritematchesGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /homepage/favoritematches</code></pre></div>
+    <div class="method-summary">Get user&#x27;s favorite matches (<span class="nickname">homepageFavoritematchesGet</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      HomePage/properties/favorite_matches
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>"{}"</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    favorite match array
+        <a href="#HomePage/properties/favorite_matches">HomePage/properties/favorite_matches</a>
+    <h4 class="field-label">400</h4>
+    somting went wrong
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    User needs to be logged in
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="homepageFavoritematchesPut"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /homepage/favoritematches</code></pre></div>
+    <div class="method-summary">Add a match to the user&#x27;s favorites (<span class="nickname">homepageFavoritematchesPut</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Game">Game</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    success
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    somting went wrong
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="homepageFavoriteplayerGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /homepage/favoriteplayer</code></pre></div>
+    <div class="method-summary">Get user&#x27;s favorite players (<span class="nickname">homepageFavoriteplayerGet</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      HomePage/properties/favorite_teams
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>"{}"</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    favorite team array
+        <a href="#HomePage/properties/favorite_teams">HomePage/properties/favorite_teams</a>
+    <h4 class="field-label">400</h4>
+    somting went wrong
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    User needs to be logged in
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="homepageFavoriteplayerPlayerIdDelete"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /homepage/favoriteplayer/{playerId}</code></pre></div>
+    <div class="method-summary">Delete a player from the user&#x27;s favorite players list (<span class="nickname">homepageFavoriteplayerPlayerIdDelete</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">playerId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    success
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad Request.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="homepageFavoriteplayerPut"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /homepage/favoriteplayer</code></pre></div>
+    <div class="method-summary">add a player to the user&#x27;s favorites (<span class="nickname">homepageFavoriteplayerPut</span>)</div>
+    <div class="method-notes"></div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">body <a href="#Player">Player</a> (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+                </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    success
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    somting went wrong
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="homepageFavoriteplayerTeamIdDelete"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /homepage/favoriteplayer/{teamId}</code></pre></div>
+    <div class="method-summary">Delete a team from the user&#x27;s favorite team list (<span class="nickname">homepageFavoriteplayerTeamIdDelete</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">teamId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    success
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad Request.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="homepageFavoriteteamsGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /homepage/favoriteteams</code></pre></div>
+    <div class="method-summary">Get user&#x27;s favorite teams (<span class="nickname">homepageFavoriteteamsGet</span>)</div>
+    <div class="method-notes"></div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      HomePage/properties/favorite_teams
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>"{}"</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    favorite team array
+        <a href="#HomePage/properties/favorite_teams">HomePage/properties/favorite_teams</a>
+    <h4 class="field-label">400</h4>
+    somting went wrong
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    User needs to be logged in
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Players">Players</a></h1>
+  <div class="method"><a name="persnoalPlayerPage"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /player/{playerId}</code></pre></div>
+    <div class="method-summary">get Player personal page by ID (<span class="nickname">persnoalPlayerPage</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">playerId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Identification of the requested player by id. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Player">Player</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "teamName" : "Maccabi Tel Aviv",
+  "fullName" : "Ronaldo Messi",
+  "id" : 23,
+  "image-url" : "image-url",
+  "position" : 0
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK. recipes on the way.
+        <a href="#Player">Player</a>
+    <h4 class="field-label">204</h4>
+    Bad, No Content was found.
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad Request.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="playerPlayerNameGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /player/{player_name}</code></pre></div>
+    <div class="method-summary">Search player by name (<span class="nickname">playerPlayerNameGet</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">player_name (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Player">Player</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "teamName" : "Maccabi Tel Aviv",
+  "fullName" : "Ronaldo Messi",
+  "id" : 23,
+  "image-url" : "image-url",
+  "position" : 0
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    data of specific player
+        <a href="#Player">Player</a>
+    <h4 class="field-label">400</h4>
+    Bad Request.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="playerchange"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /player/{playerId}</code></pre></div>
+    <div class="method-summary">update player page (<span class="nickname">playerchange</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">playerId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Identification of the requested playr by id. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    success
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    somting went wrong
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Teams">Teams</a></h1>
+  <div class="method"><a name="teamPage"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /Team/{teamId}</code></pre></div>
+    <div class="method-summary">get team personal page by ID (<span class="nickname">teamPage</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">teamId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Identification of the requested team by id. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Team">Team</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "teamName" : "Maccabi Tel Aviv",
+  "players" : [ {
+    "teamName" : "Maccabi Tel Aviv",
+    "fullName" : "Ronaldo Messi",
+    "id" : 23,
+    "image-url" : "image-url",
+    "position" : 0
+  }, {
+    "teamName" : "Maccabi Tel Aviv",
+    "fullName" : "Ronaldo Messi",
+    "id" : 23,
+    "image-url" : "image-url",
+    "position" : 0
+  } ],
+  "Games" : [ null, null ],
+  "id" : 84,
+  "coach-id" : 23
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK. recipes on the way.
+        <a href="#Team">Team</a>
+    <h4 class="field-label">204</h4>
+    Bad, No Content was found.
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad Request.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="teamTeamNameGet"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /Team/{team_name}</code></pre></div>
+    <div class="method-summary">Search team by name (<span class="nickname">teamTeamNameGet</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">team_name (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Team">Team</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "teamName" : "Maccabi Tel Aviv",
+  "players" : [ {
+    "teamName" : "Maccabi Tel Aviv",
+    "fullName" : "Ronaldo Messi",
+    "id" : 23,
+    "image-url" : "image-url",
+    "position" : 0
+  }, {
+    "teamName" : "Maccabi Tel Aviv",
+    "fullName" : "Ronaldo Messi",
+    "id" : 23,
+    "image-url" : "image-url",
+    "position" : 0
+  } ],
+  "Games" : [ null, null ],
+  "id" : 84,
+  "coach-id" : 23
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Data of specific user
+        <a href="#Team">Team</a>
+    <h4 class="field-label">400</h4>
+    Bad Request.
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="teamchange"></a>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /Team/{teamId}</code></pre></div>
+    <div class="method-summary">update team page by ID (<span class="nickname">teamchange</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">teamId (required)</div>
+      
+            <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Identification of the requested team by id. </div>    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    success
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    somting went wrong
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#Coach"><code>Coach</code></a></li>
+    <li><a href="#Event"><code>Event</code></a></li>
+    <li><a href="#Game"><code>Game</code></a></li>
+    <li><a href="#HomePage"><code>HomePage</code></a></li>
+    <li><a href="#Leauge"><code>Leauge</code></a></li>
+    <li><a href="#Player"><code>Player</code></a></li>
+    <li><a href="#Team"><code>Team</code></a></li>
+    <li><a href="#User"><code>User</code></a></li>
+    <li><a href="#body"><code>body</code></a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="Coach"><code>Coach</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 111</span></div>
+<div class="param">fullName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: zinedine zidane</span></div>
+<div class="param">teamName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Real Madrid</span></div>
+<div class="param">image-url (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: URL</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Event"><code>Event</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">date (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 13.5.2021</span></div>
+<div class="param">hour (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 1140</span></div>
+<div class="param">minute (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 30</span></div>
+<div class="param">action_description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: goal by Ronaldo</span></div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Game"><code>Game</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 1</span></div>
+<div class="param">data (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 13.5.2021</span></div>
+<div class="param">home-team (optional)</div><div class="param-desc"><span class="param-type"><a href="#Team">Team</a></span>  </div>
+<div class="param">away-team (optional)</div><div class="param-desc"><span class="param-type"><a href="#Team">Team</a></span>  </div>
+<div class="param">home_score (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 2</span></div>
+<div class="param">away_score (optional)</div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 3</span></div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="HomePage"><code>HomePage</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">user (optional)</div><div class="param-desc"><span class="param-type"><a href="#User">User</a></span>  </div>
+<div class="param">favorite_players (optional)</div><div class="param-desc"><span class="param-type"><a href="#Player">array[Player]</a></span>  </div>
+<div class="param">favorite_teams (optional)</div><div class="param-desc"><span class="param-type"><a href="#Team">array[Team]</a></span>  </div>
+<div class="param">favorite_matches (optional)</div><div class="param-desc"><span class="param-type"><a href="#Game">array[Game]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Leauge"><code>Leauge</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 33</span></div>
+<div class="param">Name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Maccabi Tel Aviv</span></div>
+<div class="param">Season (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 2020/2021</span></div>
+<div class="param">Stage (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 1</span></div>
+<div class="param">country (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Israel</span></div>
+<div class="param">games (optional)</div><div class="param-desc"><span class="param-type"><a href="#Game">array[Game]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Player"><code>Player</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 23</span></div>
+<div class="param">fullName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Ronaldo Messi</span></div>
+<div class="param">teamName (optional)</div><div class="param-desc"><span class="param-type"><a href="#"></a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Maccabi Tel Aviv</span></div>
+<div class="param">image-url (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: URL</div>
+<div class="param">position (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Team"><code>Team</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 84</span></div>
+<div class="param">teamName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Maccabi Tel Aviv</span></div>
+<div class="param">coach-id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 23</span></div>
+<div class="param">players (optional)</div><div class="param-desc"><span class="param-type"><a href="#Player">array[Player]</a></span>  </div>
+<div class="param">Games (optional)</div><div class="param-desc"><span class="param-type"><a href="#Game">array[Game]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="User"><code>User</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 12</span></div>
+<div class="param">username (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: ofek3928</span></div>
+<div class="param">password (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: 123456</span></div>
+<div class="param">firstName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Ofek</span></div>
+<div class="param">lastName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Ronen</span></div>
+<div class="param">country (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+          <div class="param-desc"><span class="param-type">example: Israel</span></div>
+<div class="param">email (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: email</div>
+          <div class="param-desc"><span class="param-type">example: ofekron@post.bgu.ac.il</span></div>
+<div class="param">image-url (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: URL</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="body"><code>body</code></a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">homegoals </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">awaygoals </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>
